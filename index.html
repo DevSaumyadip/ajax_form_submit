@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device=width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+</head>
+
+<body>
+    <div class="login-box">
+        <h1>Login</h1>
+        <form id="formData">
+            <div class="textbox">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <input type="text" placeholder="Username" id="username">
+            </div>
+            <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <input type="password" placeholder="Password" id="password">
+            </div>
+            <input class="btn" type="submit" id=submit value="Sign In">
+        </form>
+    </div>
+</body>
+<script type="text/javascript">
+
+    $(document).on('submit', '#formData', function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            type:'POST',
+            headers: {
+                'token': '',
+            },
+            url:'http://localhost:1337/api/v.0.1/user/signup',
+            data:{
+                email:$('#username').val(),
+                password:$('#password').val(),
+                confirmPassword:'password',
+                fname:'saumyadip',
+                lname:'biswas'
+            },
+            success:function(result){
+                alert('sails response');
+                console.log('sails response' , result);
+            }
+        });
+    });
+
+</script>
+</html>

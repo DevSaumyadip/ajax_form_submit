@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>jsonp test</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>	
+    </head>
+    <body>
+        <div id="select_div"><a href="#" id="select_link">Test</a></div>
+        <form >
+
+        </form>    
+    </body>
+    <script type="text/javascript">
+        $(function(){				
+            $('#select_link').click(function(e){
+                e.preventDefault();
+                console.log('select_link clicked');
+                
+                var data = {};
+                data.title = "title";
+                data.message = "message";
+                
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    url: 'http://localhost:3000/endpoint',						
+                    success: function(data) {
+                        console.log('success');
+                        console.log(JSON.stringify(data));
+                    }
+                });
+            });				
+        });
+    </script>
+
+    <script>
+        $("#btnSubmit").click(function(event) {
+
+            // Fetch form to apply custom Bootstrap validation
+            var form = $("#myForm")
+
+            if (form[0].checkValidity() === false) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.addClass('was-validated');
+            // Perform ajax submit here...
+
+        });
+    </script>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bestag Embedded Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .bg-light {
+            background: #EDEDEE !important;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <section class="border rounded border-dark p-3">
+            <h5>FIND THE BEST AGENT TO SELL YOUR PROPERTY</h5>
+            <div class="p-3 border border-medium rounded">
+                <form id="formData">
+                    <div class="row">
+                        <!-- PROPERTY DETAILS START -->
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <article class="h-100 bg-light border border-medium p-3">
+                                <h6><strong>PROPERTY DETAILS</strong></h6>
+                                <div class="form-group row">
+                                    <label for="inputZipCode" class="col-sm-6 col-form-label h6 text-md-right">ZIP
+                                        CODE:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="inputZipCode"
+                                            placeholder="Zip Code">
+                                    </div>
+                                    <div class="valid-feedback"> </div>
+                                    <div class="invalid-feedback">
+                                        Enter ZipCode
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPrice" class="col-sm-6 col-form-label h6 text-md-right">PRICE
+                                        <small>(in millions)</small>:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="inputPrice" placeholder="price">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <label for="inputAddress"
+                                        class="col-sm-6 col-form-label h6 text-md-right">ADDRESS:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <!-- PROPERTY DETAILS END -->
+
+                        <!-- PROPERTY DETAILS START -->
+                        <div class="col-md-6">
+                            <article class="h-100 bg-light border border-medium p-3">
+                                <h6><strong>CONTACT DETAILS</strong></h6>
+                                <div class="form-group row">
+                                    <label for="inputName"
+                                        class="col-sm-6 col-form-label h6 text-md-right">NAME:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail" class="col-sm-6 col-form-label h6 text-md-right">EMAIL
+                                        ADDRESS:</label>
+                                    <div class="col-sm-6">
+                                        <input type="email" class="form-control" id="inputEmail"
+                                            placeholder="Email Address">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <label for="inputPhone" class="col-sm-6 col-form-label h6 text-md-right">PHONE
+                                        NUMBER:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="inputPhone"
+                                            placeholder="Phone Number">
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <!-- PROPERTY DETAILS END -->
+                    </div>
+
+                    <!-- powered by start -->
+                    <article class="d-flex justify-content-between align-items-center pt-3">
+                        <div class="d-flex align-items-center">
+                            <span>powered by </span>
+                            <img src="" alt="logo" class="ml-3">
+                        </div>
+                        <button type="submit" id=submit class="btn btn-secondary btn-sm text-uppercase">Get Top
+                            10</button>
+                    </article>
+                    <!-- powered by end -->
+                </form>
+                <div id="ack"> </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+<script type='text/javascript'>
+
+    // function validate(id) {
+    //     if ($("#" + id).val() == null || $("#" + id).val() == "") {
+    //         var div = $('#'+id).closest("div");
+    //         alert(id + " validation error");
+    //         //div.addClass('invalid-feedback');
+    //         return false;
+    //     } else {
+    //         var div = $('#'+id).closest("div");
+    //         alert(id + " validation no error");
+    //         //div.addClass('was-validated');
+    //         return true;
+    //     }
+    // }
+
+    // $(document).ready(
+    //     function () {
+    //         $("#submit").click(function () {
+    //             if(!validate("inputZipCode")){
+    //                 return false;
+    //             };
+    //             if (!validate("inputPrice")){
+    //                 return false;
+    //             };
+    //             if (!validate("inputName")){
+    //                 return false;
+    //             };
+    //             if (!validate("inputEmail")){
+    //                 return false;
+    //             }
+    //         });
+    //     }
+    // )
+
+    $(document).on('submit', '#formData', function (e) {
+        e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                // headers: {
+                //     'token': '',
+                // },
+                url: 'http://localhost:1337/api/v.0.1/user/signup',
+                data: {
+                    zip: $('#inputZipCode').val(),
+                    price: $('#inputPrice').val(),
+                    address: $('#inputAddress').val(),
+                    name: $('#inputName').val(),
+                    email: $('#inputEmail').val(),
+                    phone: $('#inputPhone').val()
+                },
+                success: function (result) {
+                    alert('sails response');
+                    console.log('sails response', result);
+                }
+            });
+    });
+
+</script>
+
+</html>
