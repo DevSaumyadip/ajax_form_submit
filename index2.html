@@ -113,7 +113,6 @@
 </body>
 
 <script type='text/javascript'>
-
     $(document).ready(function () {
         $('#submit').click("#formData", function (e) {
             e.preventDefault();
@@ -165,45 +164,27 @@
                     // },
                     url: 'http://localhost:1337/api/v.0.1/user/signup',
                     data: {
-                        zip: $('#inputZipCode').val(),
-                        price: $('#inputPrice').val(),
-                        address: $('#inputAddress').val(),
-                        name: $('#inputName').val(),
-                        email: $('#inputEmail').val(),
-                        phone: $('#inputPhone').val()
+                        zip: zipcode,
+                        price: price,
+                        address: address,
+                        name: name,
+                        email: email,
+                        phone: phone
                     },
                     success: function (result) {
-                        alert('sails response');
-                        console.log('sails response', result);
+                        alert('response');
+                        console.log('response', result);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        xhr.status;
+                        console.log('response error code ', xhr.status);
+                        xhr.responseText;
+                        console.log('response error', xhr.responseText);
                     }
                 });
             }
         });
     });
-
-    // $(document).on('submit', '#formData', function (e) {
-    //     e.preventDefault();
-    //     $.ajax({
-    //         type: 'POST',
-    //         // headers: {
-    //         //     'token': '',
-    //         // },
-    //         url: 'http://localhost:1337/api/v.0.1/user/signup',
-    //         data: {
-    //             zip: $('#inputZipCode').val(),
-    //             price: $('#inputPrice').val(),
-    //             address: $('#inputAddress').val(),
-    //             name: $('#inputName').val(),
-    //             email: $('#inputEmail').val(),
-    //             phone: $('#inputPhone').val()
-    //         },
-    //         success: function (result) {
-    //             alert('sails response');
-    //             console.log('sails response', result);
-    //         }
-    //     });
-    // });
-
 </script>
 
 </html>
