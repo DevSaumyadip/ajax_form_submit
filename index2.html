@@ -114,61 +114,95 @@
 
 <script type='text/javascript'>
 
-    // function validate(id) {
-    //     if ($("#" + id).val() == null || $("#" + id).val() == "") {
-    //         var div = $('#'+id).closest("div");
-    //         alert(id + " validation error");
-    //         //div.addClass('invalid-feedback');
-    //         return false;
-    //     } else {
-    //         var div = $('#'+id).closest("div");
-    //         alert(id + " validation no error");
-    //         //div.addClass('was-validated');
-    //         return true;
-    //     }
-    // }
+    $(document).ready(function () {
+        $('#submit').click("#formData", function (e) {
+            e.preventDefault();
+            const name = $("#inputName").val();
+            const phone = $('#inputPhone').val();
+            const price = $('#inputPrice').val();
+            const zipcode = $('#inputZipCode').val();
+            const email = $("#inputEmail").val();
+            const address = $('#inputAddress').val();
 
-    // $(document).ready(
-    //     function () {
-    //         $("#submit").click(function () {
-    //             if(!validate("inputZipCode")){
-    //                 return false;
-    //             };
-    //             if (!validate("inputPrice")){
-    //                 return false;
-    //             };
-    //             if (!validate("inputName")){
-    //                 return false;
-    //             };
-    //             if (!validate("inputEmail")){
-    //                 return false;
-    //             }
-    //         });
-    //     }
-    // )
+            const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g
+            const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            const zipRegex = /^[0-9]+$/;
+            const priceRegex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
+            const phoneRegex = /^[0-9]{10}$/;
 
-    $(document).on('submit', '#formData', function (e) {
-        e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                // headers: {
-                //     'token': '',
-                // },
-                url: 'http://localhost:1337/api/v.0.1/user/signup',
-                data: {
-                    zip: $('#inputZipCode').val(),
-                    price: $('#inputPrice').val(),
-                    address: $('#inputAddress').val(),
-                    name: $('#inputName').val(),
-                    email: $('#inputEmail').val(),
-                    phone: $('#inputPhone').val()
-                },
-                success: function (result) {
-                    alert('sails response');
-                    console.log('sails response', result);
-                }
-            });
+            if (name.length === 0 || name == null) {
+                alert('Name is required');
+            }
+            else if (!nameRegex.test(name)) {
+                alert('Not a valid Name');
+            }
+            else if (email.length === 0 || email == null) {
+                alert('Email is required');
+            }
+            else if (!emailRegex.test(email)) {
+                alert('Provide a valid email');
+            }
+            else if (zipcode.length === 0 || zipcode == null) {
+                alert('ZipCode is required');
+            }
+            else if (!zipRegex.test(zipcode)) {
+                alert('Enter a Valid ZipCode');
+            }
+            else if (price.length === 0 || price == null) {
+                alert('Price is required');
+            }
+            else if (!priceRegex.test(price)) {
+                alert('Enter Price in valid Format');
+            }
+            else if (!phoneRegex.test(phone)) {
+                alert('Enter a valid Phone Number')
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    // headers: {
+                    //     'token': '',
+                    // },
+                    url: 'http://localhost:1337/api/v.0.1/user/signup',
+                    data: {
+                        zip: $('#inputZipCode').val(),
+                        price: $('#inputPrice').val(),
+                        address: $('#inputAddress').val(),
+                        name: $('#inputName').val(),
+                        email: $('#inputEmail').val(),
+                        phone: $('#inputPhone').val()
+                    },
+                    success: function (result) {
+                        alert('sails response');
+                        console.log('sails response', result);
+                    }
+                });
+            }
+        });
     });
+
+    // $(document).on('submit', '#formData', function (e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: 'POST',
+    //         // headers: {
+    //         //     'token': '',
+    //         // },
+    //         url: 'http://localhost:1337/api/v.0.1/user/signup',
+    //         data: {
+    //             zip: $('#inputZipCode').val(),
+    //             price: $('#inputPrice').val(),
+    //             address: $('#inputAddress').val(),
+    //             name: $('#inputName').val(),
+    //             email: $('#inputEmail').val(),
+    //             phone: $('#inputPhone').val()
+    //         },
+    //         success: function (result) {
+    //             alert('sails response');
+    //             console.log('sails response', result);
+    //         }
+    //     });
+    // });
 
 </script>
 
